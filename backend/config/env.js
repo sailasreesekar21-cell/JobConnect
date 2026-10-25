@@ -26,7 +26,6 @@ function getConfig() {
       ? process.env.JWT_SECRET || 'test-only-jwt-secret-not-for-production'
       : requireEnv('JWT_SECRET'),
     jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
-    clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
   };
 }
 

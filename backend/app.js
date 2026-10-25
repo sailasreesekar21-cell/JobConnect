@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const { getConfig } = require('./config/env');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -12,12 +11,11 @@ const contactRoutes = require('./routes/contactRoutes');
 
 function createApp() {
   const app = express();
-  const { clientOrigin } = getConfig();
 
   app.use(helmet());
   app.use(
     cors({
-      origin: clientOrigin,
+      origin: true,
       credentials: true,
     })
   );
