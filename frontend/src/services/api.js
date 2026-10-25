@@ -20,7 +20,7 @@ export async function apiRequest(path, { method = 'GET', body, token } = {}) {
     });
   } catch {
     const error = new Error(
-      'Cannot reach the JobConnect API. Make sure the backend is running on port 5000.'
+      'Cannot reach the JobConnect API. Please check your connection and try again.'
     );
     error.status = 0;
     throw error;
