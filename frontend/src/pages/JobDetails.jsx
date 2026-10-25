@@ -12,6 +12,7 @@ export default function JobDetails() {
   const [job, setJob] = useState(null);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [notice, setNotice] = useState('');
   const [resumeUrl, setResumeUrl] = useState('');
   const [coverLetter, setCoverLetter] = useState('');
   const [loading, setLoading] = useState(true);
@@ -28,6 +29,11 @@ export default function JobDetails() {
     event.preventDefault();
     setError('');
     setMessage('');
+    setNotice('');
+    if (job.isDemo) {
+      setNotice('Applications will be available when the backend is connected.');
+      return;
+    }
     try {
       await applicationApi.apply({ jobId: id, resumeUrl, coverLetter });
       setMessage('Application submitted. You can track it under My Applications.');
@@ -43,7 +49,7 @@ export default function JobDetails() {
     <section className="page">
       <div className="container two-col">
         <article className="panel" style={{ padding: '1.5rem' }}>
-          {job.isDemo && <span className="badge demo">Demonstration listing</span>}
+          {job.isDemo && <span className="badge demo">Demo Job</span>}
           <h1>{job.title}</h1>
           <p className="job-meta">
             <span>{job.companyName}</span>
@@ -64,6 +70,7 @@ export default function JobDetails() {
           <h3>Apply for this job</h3>
           <Alert type="error">{error}</Alert>
           <Alert type="success">{message}</Alert>
+          <Alert type="info">{notice}</Alert>
           {user?.role === ROLES.JOB_SEEKER ? (
             <form className="form" onSubmit={apply}>
               <label className="label" htmlFor="resumeUrl">Resume URL</label>
